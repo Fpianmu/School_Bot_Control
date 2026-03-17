@@ -9,7 +9,7 @@ void Motor_Init()
 	*/
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOD | RCC_APB2Periph_GPIOF , ENABLE);
 	GPIO_InitTypeDef GPIO_InitStructure;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_10 | GPIO_Pin_11;
@@ -37,15 +37,15 @@ void Move_L1(int16_t speed)
 	//PWM输出
 	if (speed > 0)  //前进
 	{
-		GPIO_SetBits(GPIOD,GPIO_Pin_8);
-		GPIO_ResetBits(GPIOD,GPIO_Pin_9);
+		GPIO_SetBits(GPIOD,GPIO_Pin_9);
+		GPIO_ResetBits(GPIOD,GPIO_Pin_8);
 		PWM_SetCompare1_T3(speed);
 	}
 	else if (speed < 0)  //后退
 	{
-		GPIO_SetBits(GPIOD,GPIO_Pin_9);
-		GPIO_ResetBits(GPIOD,GPIO_Pin_8);
-		PWM_SetCompare1_T3(0);
+		GPIO_SetBits(GPIOD,GPIO_Pin_8);
+		GPIO_ResetBits(GPIOD,GPIO_Pin_9);
+		PWM_SetCompare1_T3(-speed);
 	}
 	else   //停车
 	{
@@ -69,14 +69,14 @@ void Move_L2(int16_t speed)
 	//PWM输出
 	if (speed > 0)  //前进
 	{
-		GPIO_SetBits(GPIOD,GPIO_Pin_10);
-		GPIO_ResetBits(GPIOD,GPIO_Pin_11);
-		PWM_SetCompare2_T3(0);
+		GPIO_SetBits(GPIOD,GPIO_Pin_11);
+		GPIO_ResetBits(GPIOD,GPIO_Pin_10);
+		PWM_SetCompare2_T3(speed);
 	}
 	else if (speed < 0)  //后退
 	{
-		GPIO_SetBits(GPIOD,GPIO_Pin_11);
-		GPIO_ResetBits(GPIOD,GPIO_Pin_10);
+		GPIO_SetBits(GPIOD,GPIO_Pin_10);
+		GPIO_ResetBits(GPIOD,GPIO_Pin_11);
 		PWM_SetCompare2_T3(-speed);
 	}
 	else   //停车
@@ -101,14 +101,14 @@ void Move_R1(int16_t speed)
 	//PWM输出
 	if (speed > 0)  //前进
 	{
-		GPIO_SetBits(GPIOF,GPIO_Pin_11);
-		GPIO_ResetBits(GPIOF,GPIO_Pin_12);
+		GPIO_SetBits(GPIOF,GPIO_Pin_12);
+		GPIO_ResetBits(GPIOF,GPIO_Pin_11);
 		PWM_SetCompare3_T3(speed);
 	}
 	else if (speed < 0)  //后退
 	{
-		GPIO_SetBits(GPIOF,GPIO_Pin_12);
-		GPIO_ResetBits(GPIOF,GPIO_Pin_11);
+		GPIO_SetBits(GPIOF,GPIO_Pin_11);
+		GPIO_ResetBits(GPIOF,GPIO_Pin_12);
 		PWM_SetCompare3_T3(-speed);
 	}
 	else   //停车
@@ -133,14 +133,14 @@ void Move_R2(int16_t speed)
 	//PWM输出
 	if (speed > 0)  //前进
 	{
-		GPIO_SetBits(GPIOF,GPIO_Pin_13);
-		GPIO_ResetBits(GPIOF,GPIO_Pin_14);
+		GPIO_SetBits(GPIOF,GPIO_Pin_14);
+		GPIO_ResetBits(GPIOF,GPIO_Pin_13);
 		PWM_SetCompare4_T3(speed);
 	}
 	else if (speed < 0)  //后退
 	{
-		GPIO_SetBits(GPIOF,GPIO_Pin_14);
-		GPIO_ResetBits(GPIOF,GPIO_Pin_13);
+		GPIO_SetBits(GPIOF,GPIO_Pin_13);
+		GPIO_ResetBits(GPIOF,GPIO_Pin_14);
 		PWM_SetCompare4_T3(-speed);
 	}
 	else   //停车

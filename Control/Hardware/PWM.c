@@ -45,6 +45,7 @@ void PWM_Init(void)
 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
 	TIM_OCInitStructure.TIM_Pulse = 0;		//CCR
 	TIM_OC1Init(TIM4, &TIM_OCInitStructure);
+	TIM_OC2Init(TIM4, &TIM_OCInitStructure);
 	TIM_OC1PreloadConfig(TIM4,TIM_OCPreload_Enable);
 	TIM_OC2PreloadConfig(TIM4,TIM_OCPreload_Enable);
 	TIM_Cmd(TIM4, ENABLE);
@@ -63,13 +64,15 @@ void PWM_Init(void)
 	TIM_TimeBaseInitStructure.TIM_RepetitionCounter = 0;
 	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseInitStructure);
 	
-	TIM_OCStructInit(&TIM_OCInitStructure);
+	//TIM_OCStructInit(&TIM_OCInitStructure);
 	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
 	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
 	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
 	TIM_OCInitStructure.TIM_Pulse = 0;		//CCR
 	TIM_OC1Init(TIM3, &TIM_OCInitStructure);
 	TIM_OC2Init(TIM3, &TIM_OCInitStructure);
+	TIM_OC3Init(TIM3, &TIM_OCInitStructure);
+	TIM_OC4Init(TIM3, &TIM_OCInitStructure);
 	TIM_OC1PreloadConfig(TIM3,TIM_OCPreload_Enable);
 	TIM_OC2PreloadConfig(TIM3,TIM_OCPreload_Enable);
 	TIM_OC3PreloadConfig(TIM3,TIM_OCPreload_Enable);
@@ -123,31 +126,31 @@ void PWM_Init(void)
 		暂无用途，停用
 	*/
 	
-	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
-    NVIC_InitTypeDef NVIC_InitStructure;
+//	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
+//    NVIC_InitTypeDef NVIC_InitStructure;
 
-    // 使能TIM2时钟
-    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
+//    // 使能TIM2时钟
+//    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
 
-    // 配置定时器基本参数
-    TIM_TimeBaseStructure.TIM_Period = 1000; // 自动重装载值
-    TIM_TimeBaseStructure.TIM_Prescaler = 7200 - 1; // 预分频系数
-    TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
-    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
-    TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
+//    // 配置定时器基本参数
+//    TIM_TimeBaseStructure.TIM_Period = 1000; // 自动重装载值
+//    TIM_TimeBaseStructure.TIM_Prescaler = 7200 - 1; // 预分频系数
+//    TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1;
+//    TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+//    TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
 
-    // 使能TIM2更新中断
-    TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);
+//    // 使能TIM2更新中断
+//    TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);
 
-    // 配置NVIC
-    NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
-    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
-    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-    NVIC_Init(&NVIC_InitStructure);
+//    // 配置NVIC
+//    NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
+//    NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+//    NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+//    NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+//    NVIC_Init(&NVIC_InitStructure);
 
-    // 启动定时器
-    TIM_Cmd(TIM2, ENABLE);
+//    // 启动定时器
+//    TIM_Cmd(TIM2, ENABLE);
 }
 
 void PWM_SetCompare1_Servo1(uint16_t Compare)
